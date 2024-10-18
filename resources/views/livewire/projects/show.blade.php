@@ -1,3 +1,2 @@
-<div>
-componente liveiwre projects.show
-</div>
+<x-project-card :$project />
+
