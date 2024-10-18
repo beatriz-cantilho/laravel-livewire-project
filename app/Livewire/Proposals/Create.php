@@ -12,6 +12,7 @@ class Create extends Component
 
     public bool $modal = false;
 
+    public bool $agree = false;
 
     #[Rule(['required', 'email'])]
     public string $email = '';
@@ -24,11 +25,19 @@ class Create extends Component
     {
         $this->validate();
 
+        if(!$this->agree) {
+            $this->addError('agree', 'Você precisa concordar com os termos de uso');
+
+            return;
+        }
+
         $this->project->proposals()
-        ->updateOrCreate([
+        ->updateOrCreate(
             ['email' => $this->email],
             ['hours' => $this->hours]
-        ]);
+        );
+
+        $this->modal = false;
     }
 
     public function render()
