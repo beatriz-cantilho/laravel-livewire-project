@@ -5,6 +5,7 @@ namespace App\Livewire\Proposals;
 use App\Actions\ArrangePositions;
 use App\Models\Project;
 use App\Models\Proposal;
+use App\Notifications\NewProposal;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -43,6 +44,7 @@ class Create extends Component
             $this->arrangePositions($proposal);
         });
 
+        $this->project->author->notify(new NewProposal($this->project));
 
         $this->dispatch('proposal::created');
 
